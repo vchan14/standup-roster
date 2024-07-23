@@ -1,12 +1,14 @@
 <script setup lang="ts">
 
 import Button from "@/components/ui/button/Button.vue";
+import ContentView from "@/components/ContentView.vue";
 </script>
 
 <template>
   <div class="app">
     <h1>hello world</h1>
     <Button>Click me</Button>
+    <ContentView/>
   </div>
 
 </template>
