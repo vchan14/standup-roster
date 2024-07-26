@@ -1,13 +1,9 @@
 <template>
-  <Input/>
-
+  <Input />
 </template>
 
 <script setup lang="ts">
-
-import {Input} from "@/components/ui/input";
+import { Input } from '@/components/ui/input'
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

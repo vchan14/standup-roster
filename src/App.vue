@@ -1,22 +1,19 @@
 <script setup lang="ts">
-
-import Button from "@/components/ui/button/Button.vue";
-import ContentView from "@/components/ContentView.vue";
+import Button from '@/components/ui/button/Button.vue'
+import ContentView from '@/components/ContentView.vue'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { Input } from '@/components/ui/input'
-import {useToast} from "@/components/ui/toast";
-import CardBasic from "@/stories/card/CardBasic.vue";
+import { useToast } from '@/components/ui/toast'
+import CardBasic from '@/stories/card/CardBasic.vue'
 
 const { toast } = useToast()
-
 
 const addNewCat = () => {
   console.log('adding new cat')
   toast({
-    description: 'new cat has been added',
+    description: 'new cat has been added'
   })
 }
-
 </script>
 
 <template>
@@ -25,24 +22,22 @@ const addNewCat = () => {
     <div class="flex flex-col gap-y-4">
       <p class="font-bold text-5xl">Cat Roaster!</p>
       <Button>Click me</Button>
-      <Input @keyup.enter="addNewCat"/>
-
+      <Input @keyup.enter="addNewCat" />
     </div>
-    <CardBasic/>
+    <CardBasic />
 
-    <ContentView/>
+    <ContentView />
   </div>
-
 </template>
 
 <style scoped>
-  .app {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    height: 100vh;
-    padding: 10px 5%;
-    row-gap: 20px;
-  }
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 100vh;
+  padding: 10px 5%;
+  row-gap: 20px;
+}
 </style>
