@@ -11,7 +11,7 @@
       >
         <template #item="{ element, index }">
           <div class="list-group-item">
-            <Input :default-value="element.name + ' ' + index" />
+            <CardBasic :name="element.name" />
           </div>
         </template>
       </draggable>
@@ -28,55 +28,29 @@
       >
         <template #item="{ element, index }">
           <div class="list-group-item">
-            <Input :default-value="element.name + ' ' + index" />
+            <CardBasic :name="element.name" />
           </div>
         </template>
       </draggable>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts" setup>
+import { ref } from 'vue'
 import draggable from 'vuedraggable'
-import { Input } from '@/components/ui/input'
+import CardBasic from '@/stories/card/CardBasic.vue'
 
-export default {
-  name: 'ContentView',
-  display: 'Two Lists',
-  order: 1,
-  components: {
-    draggable,
-    Input
-  },
-  data() {
-    return {
-      list1: [
-        { name: 'John', id: 1 },
-        { name: 'Joao', id: 2 },
-        { name: 'Jean', id: 3 },
-        { name: 'Gerard', id: 4 }
-      ],
-      list2: [
-        { name: 'Juan', id: 5 },
-        { name: 'Edgard', id: 6 },
-        { name: 'Johnson', id: 7 }
-      ]
-    }
-  },
-  methods: {
-    add: function () {
-      this.list.push({ name: 'Juan' })
-    },
-    replace: function () {
-      this.list = [{ name: 'Edgard' }]
-    },
-    clone: function (el) {
-      return {
-        name: el.name + ' cloned'
-      }
-    },
-    log: function (evt) {
-      window.console.log(evt)
-    }
-  }
-}
+const list1 = ref([
+  { name: 'John Cena', id: 1 },
+  { name: 'Joao Joao', id: 2 },
+  { name: 'Jean Rent', id: 3 },
+  { name: 'Gerard', id: 4 }
+])
+
+const list2 = ref([
+  { name: 'Domonic', id: 5 },
+  { name: 'Fatima Sahin', id: 6 },
+  { name: 'Johnson Glen', id: 7 }
+])
 </script>
+

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import Button from '@/components/ui/button/Button.vue'
 import ContentView from '@/components/ContentView.vue'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/toast'
-import CardBasic from '@/stories/card/CardBasic.vue'
 
 const { toast } = useToast()
 
@@ -20,12 +18,10 @@ const addNewCat = () => {
   <Toaster />
   <div class="app">
     <div class="flex flex-col gap-y-4">
-      <p class="font-bold text-5xl">Cat Roaster!</p>
-      <Button>Click me</Button>
-      <Input @keyup.enter="addNewCat" />
+      <p class=" text-5xl">Cat Roster!</p>
+      <p class="font-bold text-2xl text-center">Add new member</p>
+      <Input placeholder="new cat" @keyup.enter="addNewCat" />
     </div>
-    <CardBasic />
-
     <ContentView />
   </div>
 </template>

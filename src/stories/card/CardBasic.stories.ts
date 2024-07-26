@@ -19,6 +19,7 @@ export const Primary: Story = {
     template: '<CardBasic v-bind="args" />'
   }),
   args: {
+    name: 'John Cena'
     // primary: true,
     // label: 'Button',
   }
