@@ -5,6 +5,7 @@ import ContentView from "@/components/ContentView.vue";
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { Input } from '@/components/ui/input'
 import {useToast} from "@/components/ui/toast";
+import CardBasic from "@/stories/card/CardBasic.vue";
 
 const { toast } = useToast()
 
@@ -27,6 +28,7 @@ const addNewCat = () => {
       <Input @keyup.enter="addNewCat"/>
 
     </div>
+    <CardBasic/>
 
     <ContentView/>
   </div>
