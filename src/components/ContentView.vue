@@ -1,49 +1,51 @@
 <template>
-  <div class="flex flex-row gap gap-x-8">
-    <div class="col-3">
-      <h3>Draggable 1</h3>
+  <div class="flex flex-row gap w-full h-full justify-between">
+    <div class="w-2/5 h-full rounded-md shadow-xl px-4">
+      <p class="font-bold text-4xl text-center my-3">Cat Pool</p>
       <draggable
-          class="list-group"
+          class="flex flex-col gap-y-2"
           :list="list1"
           group="people"
           @change="log"
           itemKey="name"
       >
         <template #item="{ element, index }">
-          <div class="list-group-item">{{ element.name }} {{ index }}</div>
+          <div class="list-group-item">
+            <Input :default-value="element.name + ' ' + index"  />
+          </div>
         </template>
       </draggable>
     </div>
 
-    <div class="col-3">
-      <h3>Draggable 2</h3>
+    <div class="w-2/5 h-full rounded-md shadow-xl px-4 ">
+      <p class="font-bold text-4xl text-center my-3">Hangout Area</p>
       <draggable
-          class="list-group"
+          class="flex flex-col gap-y-2"
           :list="list2"
           group="people"
           @change="log"
           itemKey="name"
       >
         <template #item="{ element, index }">
-          <div class="list-group-item">{{ element.name }} {{ index }}</div>
+          <div class="list-group-item">
+            <Input :default-value="element.name + ' ' + index"  />
+          </div>
         </template>
       </draggable>
     </div>
-
-    <rawDisplayer class="col-3" :value="list1" title="List 1" />
-
-    <rawDisplayer class="col-3" :value="list2" title="List 2" />
   </div>
 </template>
 <script>
 import draggable from 'vuedraggable';
+import { Input } from '@/components/ui/input'
 
 export default {
   name: "ContentView",
   display: "Two Lists",
   order: 1,
   components: {
-    draggable
+    draggable,
+    Input
   },
   data() {
     return {
