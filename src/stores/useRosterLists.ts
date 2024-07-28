@@ -35,6 +35,11 @@ export const useRosterLists = defineStore('rosterLists', () => {
 		availableList.value.push(cat);
 	}
 	
+	const resetLists = () => {
+		availableList.value = initialAvailableList;
+		calledList.value = initialCalledList;
+	}
+	
 	watch(availableList,
 		(newAvailableList) => {
 			console.log('Available List Updated', newAvailableList);
@@ -60,5 +65,5 @@ export const useRosterLists = defineStore('rosterLists', () => {
 		}
 	});
 	
-	return { availableList, calledList, addCat, deleteCat }
+	return { availableList, calledList, addCat, deleteCat, resetLists}
 });
