@@ -42,8 +42,8 @@
       </draggable>
     </div>
   </div>
+  <ButtonBasic @click="getNextCat">Next Cat</ButtonBasic>
 
-  <ButtonBasic @click="doSomething">Click me</ButtonBasic>
 </template>
 
 <script lang="ts" setup>
@@ -53,6 +53,9 @@ import { useRosterLists } from "@/stores/useRosterLists";
 import ButtonBasic from "@/components/ui/button/ButtonBasic.vue";
 import { Trash2 } from 'lucide-vue-next';
 import { ref } from "vue";
+import {useToast} from "@/components/ui/toast";
+
+const {toast} = useToast();
 
 const poolListStore = useRosterLists();
 const draggedCardId = ref(0);
@@ -73,6 +76,17 @@ const handleDragLeave = () => {
 const handleDrop = (event: DragEvent) => {
   isHovering.value = false;
   poolListStore.deleteCat(draggedCardId.value);
+};
+
+
+const getNextCat = () => {
+  const nextCat = poolListStore.getNextCat();
+  if (!nextCat) {
+    toast({
+      description: `No more cats in the pool`
+    })
+  }
+  console.log('next cat', nextCat);
 };
 
 </script>

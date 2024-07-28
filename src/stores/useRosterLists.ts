@@ -40,6 +40,16 @@ export const useRosterLists = defineStore('rosterLists', () => {
 		calledList.value = initialCalledList;
 	}
 	
+	const getNextCat = () => {
+		// randomly pick a cat from the available list
+		// if available list is empty returns null
+		if(availableList.value.length === 0) {
+			return null;
+		}
+		const randomIndex = Math.floor(Math.random() * availableList.value.length);
+		return availableList.value[randomIndex];
+	}
+	
 	watch(availableList,
 		(newAvailableList) => {
 			console.log('Available List Updated', newAvailableList);
@@ -65,5 +75,6 @@ export const useRosterLists = defineStore('rosterLists', () => {
 		}
 	});
 	
-	return { availableList, calledList, addCat, deleteCat, resetLists}
+	
+	return { availableList, calledList, addCat, deleteCat, resetLists, getNextCat}
 });
