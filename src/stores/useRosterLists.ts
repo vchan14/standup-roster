@@ -6,15 +6,13 @@ import {defineStore} from "pinia";
 
 const initialAvailableList: CatObject[] = [
 	{ name: 'John Cena', id: 1 },
-	{ name: 'Joao Joao', id: 2 },
-	{ name: 'Jean Rent', id: 3 },
-	{ name: 'Gerard', id: 4 }
+	{ name: 'Joe Joe', id: 2 },
 ]
 
 const initialCalledList: CatObject[] = [
-	{ name: 'Domonic', id: 5 },
-	{ name: 'Fatima Sahin', id: 6 },
-	{ name: 'Johnson Glen', id: 7 }
+	{ name: 'Whiskers', id: 5 },
+	{ name: 'Luna', id: 6 },
+	{ name: 'Simba', id: 7 }
 ]
 
 const AVAILABLE_LIST_LS = 'AVAILABLE_LIST_LS';
@@ -28,13 +26,10 @@ export const useRosterLists = defineStore('rosterLists', () => {
 	const calledList = ref<CatObject[]>(initialCalledList);
 	
 	
-	// const updateAvailableList = (cats : CatObject[]) => {
-	// 	availableList.value = cats;
-	// }
-	//
-	// const updateCalledList = (cats : CatObject[]) => {
-	// 	calledList.value = cats;
-	// }
+	const deleteCat = (id: number) => {
+		availableList.value = availableList.value.filter(cat => cat.id !== id);
+		calledList.value = calledList.value.filter(cat => cat.id !== id);
+	}
 	
 	const addCat = (cat: CatObject) => {
 		availableList.value.push(cat);
@@ -65,5 +60,5 @@ export const useRosterLists = defineStore('rosterLists', () => {
 		}
 	});
 	
-	return { availableList, calledList, addCat }
+	return { availableList, calledList, addCat, deleteCat }
 });

@@ -8,12 +8,18 @@
         group="people"
         itemKey="name"
       >
-        <template #item="{ element, index }">
-          <div class="list-group-item">
+        <template #item="{ element }">
+          <div class="list-group-item" :id="element.id" @dragstart="handleDragStart">
             <CardBasic :name="element.name" />
           </div>
         </template>
       </draggable>
+    </div>
+
+    <div class="flex justify-center items-center px-2"
+         @dragover.prevent
+         @drop="handleDrop">
+      <Trash2 :size="49" />
     </div>
 
     <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-xl px-4 py-2 ">
@@ -24,8 +30,8 @@
         group="people"
         itemKey="name"
       >
-        <template #item="{ element, index }">
-          <div class="list-group-item">
+        <template #item="{ element }">
+          <div class="list-group-item" :id="element.id" @dragstart="handleDragStart">
             <CardBasic :name="element.name" />
           </div>
         </template>
@@ -37,13 +43,31 @@
 
 </template>
 <script lang="ts" setup>
-import draggable from 'vuedraggable'
-import CardBasic from '@/stories/card/CardBasic.vue'
+import draggable from 'vuedraggable';
+import CardBasic from '@/stories/card/CardBasic.vue';
 import {useRosterLists} from "@/stores/useRosterLists";
 import ButtonBasic from "@/components/ui/button/ButtonBasic.vue";
+import { Trash2 } from 'lucide-vue-next';
+import {ref} from "vue";
 
 
 const poolListStore = useRosterLists();
+const draggedCardId = ref(0);
+
+
+
+
+
+
+const handleDragStart = (event: DragEvent) => {
+  console.log('handleDragStart', event.target);
+  draggedCardId.value = parseInt((event.target as HTMLElement).id);
+};
+
+const handleDrop = (event: DragEvent) => {
+  console.log('handleDrop ', draggedCardId.value);
+  poolListStore.deleteCat(draggedCardId.value);
+};
 
 
 const doSomething = () => {
@@ -54,10 +78,5 @@ const doSomething = () => {
   }])
   console.log('doing something')
 }
-
-
-
-
-
 </script>
 
