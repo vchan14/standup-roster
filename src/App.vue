@@ -6,6 +6,7 @@ import { useToast } from '@/components/ui/toast'
 import {useRosterLists} from "@/stores/useRosterLists";
 import { RotateCw } from 'lucide-vue-next';
 import ButtonBasic from "@/components/ui/button/ButtonBasic.vue";
+import { PawPrint } from 'lucide-vue-next';
 
 const { toast } = useToast()
 
@@ -25,14 +26,14 @@ const addNewCat = (e: Event) => {
   })
 
   toast({
-    description: `new cat has been added ${name}`
+    description: `New cat has been added - ${name}`
   })
 }
 
 const resetLists = () => {
   rosterStore.resetLists()
   toast({
-    description: `lists have been reset`
+    description: `Lists have been reset`
   })
 }
 
@@ -47,8 +48,11 @@ const resetLists = () => {
   </div>
   <div class="app">
     <div class="flex flex-col gap-y-4">
+      <span><paw-print class="text-5xl" /></span>
       <p class=" text-5xl">Cat Standup!</p>
-      <Input type="text" class="shadow-none" placeholder="new cat" @keyup.enter="addNewCat" />
+      <Input
+          class="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
+          type="text" placeholder="New cat" @keyup.enter="addNewCat" />
     </div>
     <ContentView />
   </div>
