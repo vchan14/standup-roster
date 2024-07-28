@@ -47,8 +47,8 @@ const resetLists = () => {
   </div>
   <div class="app">
     <div class="flex flex-col gap-y-4">
-      <p class=" text-5xl">Cat Roster!</p>
-      <Input class="shadow-none" placeholder="new cat" @keyup.enter="addNewCat" />
+      <p class=" text-5xl">Cat Standup!</p>
+      <Input type="text" class="shadow-none" placeholder="new cat" @keyup.enter="addNewCat" />
     </div>
     <ContentView />
   </div>
