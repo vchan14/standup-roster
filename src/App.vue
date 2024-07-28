@@ -3,13 +3,27 @@ import ContentView from '@/components/ContentView.vue'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/toast'
+import {useRosterLists} from "@/stores/useRosterLists";
 
 const { toast } = useToast()
 
-const addNewCat = () => {
+const rosterStore = useRosterLists();
+
+const addNewCat = (e: Event) => {
+  const name =(e.target as HTMLInputElement).value
+  if (!name) {
+    return
+  }
+  e.target.value = '';
   console.log('adding new cat')
+  const id = new Date().getTime()
+  rosterStore.addCat({
+    name,
+    id
+  })
+
   toast({
-    description: 'new cat has been added'
+    description: `new cat has been added ${name}`
   })
 }
 </script>
@@ -30,10 +44,11 @@ const addNewCat = () => {
 .app {
   display: flex;
   flex-direction: column;
-  justify-content: start;
   align-items: center;
   height: 100vh;
-  padding: 10px 5%;
+  padding: 10px ;
+  margin: auto;
   row-gap: 20px;
+  max-width: 50em;
 }
 </style>

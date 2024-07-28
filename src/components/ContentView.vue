@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-row gap w-full h-full justify-between">
-    <div class="w-2/5 h-[95%] rounded-md shadow-xl px-4 py-2 ">
+    <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-xl px-4 py-2 ">
       <p class="font-bold text-4xl text-center my-3">Cat Pool</p>
       <draggable
-        class="flex flex-col gap-y-2"
-        :list="poolList"
+        class="flex flex-col gap-y-2 h-full"
+        v-model="poolListStore.availableList"
         group="people"
         itemKey="name"
       >
@@ -16,11 +16,11 @@
       </draggable>
     </div>
 
-    <div class="w-2/5 h-[95%] rounded-md shadow-xl px-4 py-2 ">
+    <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-xl px-4 py-2 ">
       <p class="font-bold text-4xl text-center my-3">Hangout Area</p>
       <draggable
-        class="flex flex-col gap-y-2"
-        :list="hangoutList"
+        class="flex flex-col gap-y-2 h-full"
+        v-model="poolListStore.calledList"
         group="people"
         itemKey="name"
       >
@@ -33,21 +33,30 @@
     </div>
   </div>
 
+  <ButtonBasic @click="doSomething" > Click me </ButtonBasic>
+
 </template>
 <script lang="ts" setup>
-import {computed} from 'vue'
 import draggable from 'vuedraggable'
 import CardBasic from '@/stories/card/CardBasic.vue'
-import {usePoolListStore} from "@/stores/poolList";
-import {useCatHangoutListStore} from "@/stores/hangoutAreaList";
+import {useRosterLists} from "@/stores/useRosterLists";
+import ButtonBasic from "@/components/ui/button/ButtonBasic.vue";
 
 
-const catPoolListStore = usePoolListStore();
-const poolList = computed(() => catPoolListStore.catPoolList);
+const poolListStore = useRosterLists();
 
 
-const catHangoutListStore = useCatHangoutListStore();
-const hangoutList = computed(() => catHangoutListStore.hangoutAreaList);
+const doSomething = () => {
+
+  poolListStore.updateAvailableList([{
+    name: 'new cat',
+    id: 3
+  }])
+  console.log('doing something')
+}
+
+
+
 
 
 </script>
