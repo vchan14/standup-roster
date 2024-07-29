@@ -3,17 +3,18 @@
     <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-lg px-4 py-2">
       <p class="font-bold text-4xl text-center my-3">Kitty Queue</p>
       <draggable
-        class="flex flex-col gap-y-2 h-full"
-        v-model="poolListStore.availableList"
-        group="people"
-        itemKey="name"
+          class="flex flex-col gap-y-2 h-full"
+          v-model="poolListStore.availableList"
+          group="people"
+          itemKey="name"
       >
         <template #item="{ element }">
           <div
-            class="list-group-item"
-            :id="element.id"
-            :class="{ 'called-effect': calledCatId === element.id }"
-            @dragstart="handleDragStart"
+              class="list-group-item"
+              :id="element.id"
+              :class="{ 'called-effect': calledCatId === element.id, 'dragged-effect': draggedCardId === element.id }"
+              @dragstart="handleDragStart"
+              @dragend="handleDragEnd"
           >
             <CardBasic :name="element.name" />
           </div>
@@ -22,27 +23,35 @@
     </div>
 
     <div
-      class="h-[95%] flex justify-center items-center px-2 flex-col"
-      @dragover.prevent="handleDragOver"
-      @dragleave="handleDragLeave"
-      @drop="handleDrop"
+        class="h-[95%] flex justify-center items-center px-2 flex-col relative"
+        @dragover.prevent="handleDragOver"
+        @dragleave="handleDragLeave"
+        @drop="handleDrop"
     >
-      <div :class="{ 'hover-effect': isHovering }">
+      <div
+          :class="{ 'hover-effect': isHovering }"
+          class="absolute bottom-0"
+      >
         <Trash2 :size="49" />
       </div>
-      <ButtonBasic class="mb-14 mt-16" @click="getNextCat">Next Cat</ButtonBasic>
+      <ButtonBasic @click="getNextCat">Next Cat</ButtonBasic>
     </div>
 
     <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-lg px-4 py-2">
       <p class="font-bold text-4xl text-center my-3">Kitty Lounge</p>
       <draggable
-        class="flex flex-col gap-y-2 h-full"
-        v-model="poolListStore.calledList"
-        group="people"
-        itemKey="name"
+          class="flex flex-col gap-y-2 h-full"
+          v-model="poolListStore.calledList"
+          group="people"
+          itemKey="name"
       >
         <template #item="{ element }">
-          <div class="list-group-item" :id="element.id" @dragstart="handleDragStart">
+          <div
+              class="list-group-item"
+              :class="{'dragged-effect': draggedCardId === element.id}"
+               :id="element.id"
+               @dragstart="handleDragStart"
+               @dragend="handleDragEnd">
             <CardBasic :name="element.name" />
           </div>
         </template>
@@ -63,12 +72,16 @@ import { useToast } from '@/components/ui/toast'
 const { toast } = useToast()
 
 const poolListStore = useRosterLists()
-const draggedCardId = ref(0)
+const draggedCardId = ref<number | null>(null)
 const isHovering = ref(false)
 const calledCatId = ref<number | null>(null)
 
 const handleDragStart = (event: DragEvent) => {
   draggedCardId.value = parseInt((event.target as HTMLElement).id)
+}
+
+const handleDragEnd = () => {
+  draggedCardId.value = null
 }
 
 const handleDragOver = () => {
@@ -81,14 +94,15 @@ const handleDragLeave = () => {
 
 const handleDrop = (event: DragEvent) => {
   isHovering.value = false
-  poolListStore.deleteCat(draggedCardId.value)
+  poolListStore.deleteCat(draggedCardId.value!)
 }
 
 const getNextCat = () => {
   const nextCat = poolListStore.getNextCat()
   if (!nextCat) {
     toast({
-      description: `No more cats in the Queue`
+      description: `No more cats in the Queue`,
+      variant: 'destructive',
     })
     return
   }
@@ -108,5 +122,9 @@ const getNextCat = () => {
 
 .called-effect {
   background-color: #8bc34a;
+}
+
+.dragged-effect {
+  background-color: #E1DDD4;
 }
 </style>
