@@ -3,21 +3,21 @@ import ContentView from '@/components/ContentView.vue'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/toast'
-import {useRosterLists} from "@/stores/useRosterLists";
-import { RotateCw } from 'lucide-vue-next';
-import ButtonBasic from "@/components/ui/button/ButtonBasic.vue";
-import { PawPrint } from 'lucide-vue-next';
+import { useRosterLists } from '@/stores/useRosterLists'
+import { RotateCw } from 'lucide-vue-next'
+import ButtonBasic from '@/components/ui/button/ButtonBasic.vue'
+import { PawPrint } from 'lucide-vue-next'
 
 const { toast } = useToast()
 
-const rosterStore = useRosterLists();
+const rosterStore = useRosterLists()
 
 const addNewCat = (e: Event) => {
-  const name =(e.target as HTMLInputElement).value
+  const name = (e.target as HTMLInputElement).value
   if (!name) {
     return
   }
-  e.target.value = '';
+  e.target.value = ''
   console.log('adding new cat')
   const id = new Date().getTime()
   rosterStore.addCat({
@@ -36,12 +36,11 @@ const resetLists = () => {
     description: `Lists have been reset`
   })
 }
-
 </script>
 
 <template>
   <Toaster />
-  <div class="top absolute ">
+  <div class="top absolute">
     <ButtonBasic @click="resetLists" variant="outline" size="icon">
       <RotateCw :size="24" />
     </ButtonBasic>
@@ -49,10 +48,13 @@ const resetLists = () => {
   <div class="app">
     <div class="flex flex-col gap-y-4">
       <span><paw-print class="text-5xl" /></span>
-      <p class=" text-5xl">Cat Standup!</p>
+      <p class="text-5xl">Cat Standup!</p>
       <Input
-          class="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
-          type="text" placeholder="New cat" @keyup.enter="addNewCat" />
+        class="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
+        type="text"
+        placeholder="New cat"
+        @keyup.enter="addNewCat"
+      />
     </div>
     <ContentView />
   </div>
@@ -64,7 +66,7 @@ const resetLists = () => {
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  padding: 10px ;
+  padding: 10px;
   margin: auto;
   row-gap: 20px;
   max-width: 50em;

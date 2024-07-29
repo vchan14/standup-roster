@@ -6,7 +6,7 @@
       <Avatar class="px-2 w-8 h-8">
         <AvatarFallback>{{ getInitials(name) }}</AvatarFallback>
       </Avatar>
-      <span>{{name}}</span>
+      <span>{{ name }}</span>
     </div>
   </div>
 </template>
@@ -26,12 +26,12 @@ const props = defineProps({
     type: String,
     required: false,
     default: ''
-  },
+  }
 })
 
 // Write a function to grab the first letter of the name. e.g: 'Jonh Cena' => 'JC', "Beckham" => 'B'
-const getInitials = (name: string|undefined) => {
-  if (!name) return '';
+const getInitials = (name: string | undefined) => {
+  if (!name) return ''
   const [firstName, lastName] = name.split(' ')
   return `${firstName[0]}${lastName ? lastName[0] : ''}`
 }
