@@ -1,6 +1,8 @@
 # Cat Standup
 
-The app that your scrum master told you not to build. 
+The app that your scrum master told you not to build.
+
+URL: https://catstandup.netlify.app/
 
 ## Features
 - Drag and drop with [Vue.Draggable](https://github.com/SortableJS/Vue.Draggable)

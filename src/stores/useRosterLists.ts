@@ -3,8 +3,8 @@ import { onMounted, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 const initialAvailableList: CatObject[] = [
-  { name: 'John Cena', id: 1 },
-  { name: 'Joe Joe', id: 2 }
+  { name: 'Lionel Messi', id: 1 },
+  { name: 'Joe Cole', id: 2 }
 ]
 
 const initialCalledList: CatObject[] = [
