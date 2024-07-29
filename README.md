@@ -13,3 +13,8 @@ URL: https://catstandup.netlify.app/
 - [ ] Add profile picture
 - [ ] Github sign in
 - [ ] Add a timer
+
+## Notes
+
+This is a weekend project to get myself familiar with Typescript, Vue 3 composition API, tailwind and pinia. 
+Hope you can find it useful.
