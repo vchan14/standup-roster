@@ -1,6 +1,8 @@
 import type { CatObject } from '@/interface/CatObject'
 import { onMounted, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
+import {useUser} from "@/stores/useUser";
+import {fireAddUserList, fireGetUserListById} from "@/firebase/fireFirestore.js";
 
 const initialAvailableList: CatObject[] = [
   { name: 'Lionel Messi', id: 1 },
@@ -17,12 +19,20 @@ const AVAILABLE_LIST_LS = 'AVAILABLE_LIST_LS'
 const CALLED_LIST_LS = 'CALLED_LIST_LS'
 
 export const useRosterLists = defineStore('rosterLists', () => {
-  const availableList = ref<CatObject[]>(initialAvailableList)
-  const calledList = ref<CatObject[]>(initialCalledList)
+  const availableList = ref<CatObject[]>([])
+  const calledList = ref<CatObject[]>([])
 
   const deleteCat = (id: number) => {
     availableList.value = availableList.value.filter((cat) => cat.id !== id)
     calledList.value = calledList.value.filter((cat) => cat.id !== id)
+  }
+  
+  const addListToFirebase = async () => {
+    const userStore = useUser();
+    const userUid = userStore.user?.uid;
+    if (userUid) {
+      await fireAddUserList(userUid, availableList.value, calledList.value);
+    }
   }
 
   const addCat = (cat: CatObject) => {
@@ -43,26 +53,22 @@ export const useRosterLists = defineStore('rosterLists', () => {
     const randomIndex = Math.floor(Math.random() * availableList.value.length)
     return availableList.value[randomIndex]
   }
-
-  watch(
-    availableList,
-    (newAvailableList) => {
-      console.log('Available List Updated', newAvailableList)
-      localStorage.setItem(AVAILABLE_LIST_LS, JSON.stringify(newAvailableList))
-    },
-    { deep: true }
-  )
-
-  watch(
-    calledList,
-    (newCalledList) => {
-      console.log('Called List Updated', newCalledList)
-      localStorage.setItem(CALLED_LIST_LS, JSON.stringify(newCalledList))
-    },
-    { deep: true }
-  )
-
-  onMounted(() => {
+  
+  const setLists = async (uid) => {
+    // use local storage if not log in
+    if (uid) {
+      console.warn('setLists', uid)
+      // use firebase if log in
+      const document = await fireGetUserListById(uid);
+      if (document) {
+        console.log('document', document)
+        if (document.availableList && document.calledList) {
+          availableList.value = document.availableList;
+          calledList.value = document.calledList;
+          return;
+        }
+      }
+    }
     const availableListLS = localStorage.getItem(AVAILABLE_LIST_LS)
     if (availableListLS) {
       availableList.value = JSON.parse(availableListLS)
@@ -71,7 +77,30 @@ export const useRosterLists = defineStore('rosterLists', () => {
     if (calledListLS) {
       calledList.value = JSON.parse(calledListLS)
     }
-  })
+  }
+  
+  watch(
+    availableList,
+    async (newAvailableList) => {
+      if (!newAvailableList) return;
+      console.log('Available List Updated', newAvailableList)
+      localStorage.setItem(AVAILABLE_LIST_LS, JSON.stringify(newAvailableList))
+      await addListToFirebase()
+    },
+    { deep: true }
+  )
 
-  return { availableList, calledList, addCat, deleteCat, resetLists, getNextCat }
+  watch(
+    calledList,
+    async (newCalledList) => {
+      if (!newCalledList) return;
+      console.log('Called List Updated', newCalledList)
+      localStorage.setItem(CALLED_LIST_LS, JSON.stringify(newCalledList))
+      await addListToFirebase()
+    },
+    { deep: true }
+  )
+  
+  
+  return { availableList, calledList, addCat, deleteCat, resetLists, getNextCat, setLists }
 })
