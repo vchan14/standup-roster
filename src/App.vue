@@ -7,7 +7,7 @@ import { useRosterLists } from '@/stores/useRosterLists'
 import { RotateCw } from 'lucide-vue-next'
 import ButtonBasic from '@/components/ui/button/ButtonBasic.vue'
 import { PawPrint } from 'lucide-vue-next'
-import {signInWithGoogle} from "@/firebase/index.js";
+import {signInWithGoogle} from "@/firebase/fireAuth.js";
 import {useUser} from "@/stores/useUser";
 
 const { toast } = useToast()
