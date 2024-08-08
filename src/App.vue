@@ -7,20 +7,20 @@ import { useRosterLists } from '@/stores/useRosterLists'
 import { RotateCw } from 'lucide-vue-next'
 import ButtonBasic from '@/components/ui/button/ButtonBasic.vue'
 import { PawPrint } from 'lucide-vue-next'
-import {signInWithGoogle} from "@/firebase/fireAuth.js";
+const {signInWithGoogle} = require("@/firebase/fireAuth.js");
 import {useUser} from "@/stores/useUser";
 import AlertDialogBasic from "@/stories/alertDialog/AlertDialogBasic.vue";
 
 const { toast } = useToast()
 
-const rosterStore = useRosterLists()
+const rosterStore: any = useRosterLists()
 
 const addNewCat = (e: Event) => {
   const name = (e.target as HTMLInputElement).value
   if (!name) {
     return
   }
-  e.target.value = ''
+  (e.target as HTMLInputElement).value = ''
   console.log('adding new cat')
   const id = new Date().getTime()
   rosterStore.addCat({
@@ -41,6 +41,11 @@ const resetLists = () => {
 }
 
 const userStore = useUser();
+
+const signinWrapper = async () => {
+  await signInWithGoogle();
+}
+
 </script>
 
 <template>
@@ -53,7 +58,7 @@ const userStore = useUser();
     </AlertDialogBasic>
 
     <ButtonBasic v-if="userStore.user === null"
-        @click="signInWithGoogle" variant="outline" >
+        @click="signinWrapper" variant="outline" >
       Sign In
     </ButtonBasic>
     <div class="flex flex-row gap-x-4 items-center" v-else>
