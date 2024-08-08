@@ -9,6 +9,7 @@ import ButtonBasic from '@/components/ui/button/ButtonBasic.vue'
 import { PawPrint } from 'lucide-vue-next'
 import {signInWithGoogle} from "@/firebase/fireAuth.js";
 import {useUser} from "@/stores/useUser";
+import AlertDialogBasic from "@/stories/alertDialog/AlertDialogBasic.vue";
 
 const { toast } = useToast()
 
@@ -45,9 +46,12 @@ const userStore = useUser();
 <template>
   <Toaster />
   <div class="top absolute flex justify-between w-full px-2">
-    <ButtonBasic @click="resetLists" variant="outline" size="icon">
+    <AlertDialogBasic
+      :on-action="resetLists"
+    >
       <RotateCw :size="24" />
-    </ButtonBasic>
+    </AlertDialogBasic>
+
     <ButtonBasic v-if="userStore.user === null"
         @click="signInWithGoogle" variant="outline" >
       Sign In
