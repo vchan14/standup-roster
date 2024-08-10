@@ -58,6 +58,7 @@ const userStore = useUser();
           @click="userStore.clearUser()" variant="outline" >
         Sign Out
       </ButtonBasic>
+
     </div>
 
   </div>
