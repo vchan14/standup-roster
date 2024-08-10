@@ -1,4 +1,4 @@
-import { type Meta, type StoryFn } from '@storybook/vue3'
+import { Meta, StoryFn } from '@storybook/vue3'
 import AlertDialogBasic from '@/stories/alertDialog/AlertDialogBasic.vue'
 
 export default {
