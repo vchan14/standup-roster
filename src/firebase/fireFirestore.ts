@@ -1,4 +1,4 @@
-import { firebaseApp } from '@/firebase/fireInit.js'
+import { firebaseApp } from '@/firebase/fireInit'
 import { collection, getDocs } from 'firebase/firestore'
 import { doc, setDoc, getFirestore, getDoc } from 'firebase/firestore'
 
@@ -9,7 +9,7 @@ querySnapshot.forEach((doc) => {
   console.log(`${doc.id} => ${doc.data()}`)
 })
 
-export const fireGetUserListById = async (uid) => {
+export const fireGetUserListById = async (uid: any) => {
   try {
     // Create a reference to the document with the given uid
     const docRef = doc(db, 'cat-lists', uid)
@@ -31,8 +31,7 @@ export const fireGetUserListById = async (uid) => {
     return null
   }
 }
-
-export const fireAddUserList = async (uid, availableList, calledList) => {
+export const fireAddUserList = async (uid:any, availableList: object[], calledList: object[]) => {
   try {
     // Set the document ID to be the same as the uid
     const docRef = doc(db, 'cat-lists', uid)

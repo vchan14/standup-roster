@@ -3,9 +3,9 @@ import { onMounted, ref, watch } from 'vue'
 import { useRosterLists } from '@/stores/useRosterLists'
 
 export const useUser = defineStore('user', () => {
-  const user = ref<UserObject | null>(null)
+  const user = ref<any | null>(null)
 
-  const setUser = (newUser) => {
+  const setUser = (newUser: any) => {
     user.value = newUser
   }
 
@@ -27,7 +27,7 @@ export const useUser = defineStore('user', () => {
 
   onMounted(async () => {
     const userLS = localStorage.getItem('USER_LS')
-    const paresedUser = JSON.parse(userLS)
+    const paresedUser = userLS == null? null : JSON.parse(userLS)
     if (paresedUser) {
       user.value = paresedUser
     }

@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { useUser } from '@/stores/useUser'
-import { firebaseApp } from '@/firebase/fireInit.js'
+import { firebaseApp } from '@/firebase/fireInit'
 
 const auth = getAuth(firebaseApp)
 const googleAuthProvider = new GoogleAuthProvider()
@@ -11,6 +11,10 @@ const signInWithGoogle = async function () {
     const result = await signInWithPopup(auth, googleAuthProvider)
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result)
+    if (credential === null) {
+      throw new Error('credential is null')
+      return;
+    }
     const token = credential.accessToken
     // The signed-in user info.
     const user = result.user
@@ -19,7 +23,7 @@ const signInWithGoogle = async function () {
     const userStore = useUser()
     userStore.setUser(user)
     // ...
-  } catch (error) {
+  } catch (error: any) {
     // Handle Errors here.
     const errorCode = error.code
     const errorMessage = error.message

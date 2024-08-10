@@ -7,7 +7,7 @@ import { useRosterLists } from '@/stores/useRosterLists'
 import { RotateCw } from 'lucide-vue-next'
 import ButtonBasic from '@/components/ui/button/ButtonBasic.vue'
 import { PawPrint } from 'lucide-vue-next'
-import {signInWithGoogle} from "@/firebase/fireAuth.js";
+import {signInWithGoogle} from "@/firebase/fireAuth";
 import {useUser} from "@/stores/useUser";
 import AlertDialogBasic from "@/stories/alertDialog/AlertDialogBasic.vue";
 
@@ -20,6 +20,7 @@ const addNewCat = (e: Event) => {
   if (!name) {
     return
   }
+  // @ts-ignore
   e.target.value = ''
   console.log('adding new cat')
   const id = new Date().getTime()
