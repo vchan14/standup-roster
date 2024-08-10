@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { browserLocalPersistence, getAuth, signInWithPopup, GoogleAuthProvider, setPersistence, onAuthStateChanged } from 'firebase/auth'
+import { browserLocalPersistence, getAuth, signInWithPopup, GoogleAuthProvider, setPersistence } from 'firebase/auth'
 import { useUser } from '@/stores/useUser'
 import { firebaseApp } from '@/firebase/fireInit'
 
