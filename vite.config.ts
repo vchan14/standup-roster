@@ -22,9 +22,12 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['firebase/auth', 'firebase/firestore', 'firebase/app'],
+    include: ['firebase/auth', 'firebase/app', "firebase/firestore"]
   },
   build: {
     target: "esnext",
+    rollupOptions: {
+      external: ['firebase/auth', 'firebase/app', "firebase/firestore"]
+    }
   }
 })
