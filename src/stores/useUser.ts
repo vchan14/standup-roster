@@ -1,6 +1,5 @@
 import {defineStore} from "pinia";
 import {onMounted, ref, watch} from "vue";
-import { useRosterLists } from '@/stores/useRosterLists'
 
 
 export const useUser = defineStore('user', () => {
@@ -16,24 +15,18 @@ export const useUser = defineStore('user', () => {
 
 	watch(
 		user,
-		async (newUser) => {
+		(newUser) => {
+			console.log('User Updated', newUser)
 			localStorage.setItem('USER_LS', JSON.stringify(newUser))
-			if(newUser) {
-				const rosterListStore = useRosterLists();
-				await rosterListStore.setLists(newUser.uid);
-			}
 		},
 		{ deep: true }
 	)
 
-	onMounted(async () => {
+	onMounted(() => {
 		const userLS = localStorage.getItem('USER_LS')
-		const paresedUser = JSON.parse(userLS);
-		if (paresedUser) {
-			user.value = paresedUser
+		if (userLS) {
+			user.value = JSON.parse(userLS)
 		}
-		const rosterListStore = useRosterLists();
-		await rosterListStore.setLists(user.value?.uid);
 	})
 
 	return {
