@@ -1,8 +1,8 @@
 import type { CatObject } from '@/interface/CatObject'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useUser } from '@/stores/useUser'
-const {fireAddUserList, fireGetUserListById} = require('@/firebase/fireFirestore.js');
+import { fireAddUserList, fireGetUserListById } from '@/firebase/fireFirestore.js'
 
 const initialAvailableList: CatObject[] = [
   { name: 'Alice', id: 1 },
@@ -53,7 +53,7 @@ export const useRosterLists = defineStore('rosterLists', () => {
     return availableList.value[randomIndex]
   }
 
-  const setLists = async (uid : undefined|number) => {
+  const setLists = async (uid) => {
     // use local storage if not log in
     if (uid) {
       console.warn('setLists', uid)

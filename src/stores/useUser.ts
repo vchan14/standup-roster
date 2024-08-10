@@ -3,9 +3,9 @@ import { onMounted, ref, watch } from 'vue'
 import { useRosterLists } from '@/stores/useRosterLists'
 
 export const useUser = defineStore('user', () => {
-  const user = ref<any>(null);
+  const user = ref<UserObject | null>(null)
 
-  const setUser = (newUser:any): any => {
+  const setUser = (newUser) => {
     user.value = newUser
   }
 
@@ -15,11 +15,11 @@ export const useUser = defineStore('user', () => {
 
   watch(
     user,
-    async (newUser:any) => {
+    async (newUser) => {
       localStorage.setItem('USER_LS', JSON.stringify(newUser))
       if (newUser) {
         const rosterListStore = useRosterLists()
-        await rosterListStore.setLists(newUser?.uid)
+        await rosterListStore.setLists(newUser.uid)
       }
     },
     { deep: true }
@@ -27,7 +27,6 @@ export const useUser = defineStore('user', () => {
 
   onMounted(async () => {
     const userLS = localStorage.getItem('USER_LS')
-    if (!userLS) return
     const paresedUser = JSON.parse(userLS)
     if (paresedUser) {
       user.value = paresedUser
