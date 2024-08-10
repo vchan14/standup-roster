@@ -1,19 +1,31 @@
 // Import the functions you need from the SDKs you need
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { browserLocalPersistence, getAuth, signInWithPopup, GoogleAuthProvider, setPersistence, onAuthStateChanged } from 'firebase/auth'
 import { useUser } from '@/stores/useUser'
 import { firebaseApp } from '@/firebase/fireInit'
 
-const auth = getAuth(firebaseApp)
+
+
+export const fireAuth = getAuth(firebaseApp)
 const googleAuthProvider = new GoogleAuthProvider()
+
+export const fireSignOut = async function () {
+  try {
+    await fireAuth.signOut()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 
 const signInWithGoogle = async function () {
   try {
-    const result = await signInWithPopup(auth, googleAuthProvider)
+    await setPersistence(fireAuth, browserLocalPersistence)
+    const result = await signInWithPopup(fireAuth, googleAuthProvider)
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result)
     if (credential === null) {
       throw new Error('credential is null')
-      return;
+      return
     }
     const token = credential.accessToken
     // The signed-in user info.

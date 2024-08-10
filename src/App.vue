@@ -7,9 +7,9 @@ import { useRosterLists } from '@/stores/useRosterLists'
 import { RotateCw } from 'lucide-vue-next'
 import ButtonBasic from '@/components/ui/button/ButtonBasic.vue'
 import { PawPrint } from 'lucide-vue-next'
-import {signInWithGoogle} from "@/firebase/fireAuth";
-import {useUser} from "@/stores/useUser";
-import AlertDialogBasic from "@/stories/alertDialog/AlertDialogBasic.vue";
+import { signInWithGoogle } from '@/firebase/fireAuth'
+import { useUser } from '@/stores/useUser'
+import AlertDialogBasic from '@/stories/alertDialog/AlertDialogBasic.vue'
 
 const { toast } = useToast()
 
@@ -41,30 +41,23 @@ const resetLists = () => {
   })
 }
 
-const userStore = useUser();
+const userStore = useUser()
 </script>
 
 <template>
   <Toaster />
   <div class="top absolute flex justify-between w-full px-2">
-    <AlertDialogBasic
-      :on-action="resetLists"
-    >
+    <AlertDialogBasic :on-action="resetLists">
       <RotateCw :size="24" />
     </AlertDialogBasic>
 
-    <ButtonBasic v-if="userStore.user === null"
-        @click="signInWithGoogle" variant="outline" >
+    <ButtonBasic v-if="userStore.user === null" @click="signInWithGoogle" variant="outline">
       Sign In
     </ButtonBasic>
     <div class="flex flex-row gap-x-4 items-center" v-else>
-      <span>{{userStore.user?.displayName}}</span>
-      <ButtonBasic
-          @click="userStore.clearUser()" variant="outline" >
-        Sign Out
-      </ButtonBasic>
+      <span>{{ userStore.user?.displayName }}</span>
+      <ButtonBasic @click="userStore.clearUser()" variant="outline"> Sign Out </ButtonBasic>
     </div>
-
   </div>
   <div class="app">
     <div class="flex flex-col gap-y-4">

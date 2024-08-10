@@ -1,16 +1,19 @@
 import { firebaseApp } from '@/firebase/fireInit'
 import { collection, getDocs } from 'firebase/firestore'
 import { doc, setDoc, getFirestore, getDoc } from 'firebase/firestore'
+import { fireAuth } from '@/firebase/fireAuth'
 
 export const db = getFirestore(firebaseApp)
 
-export const querySnapshot = await getDocs(collection(db, 'cat-lists'))
-querySnapshot.forEach((doc) => {
-  console.log(`${doc.id} => ${doc.data()}`)
-})
+// export const querySnapshot = await getDocs(collection(db, 'cat-lists'))
+// querySnapshot.forEach((doc) => {
+//   console.log(`${doc.id} => ${doc.data()}`)
+// })
 
 export const fireGetUserListById = async (uid: any) => {
   try {
+    const temp = fireAuth.currentUser
+    console.log({temp, uid});
     // Create a reference to the document with the given uid
     const docRef = doc(db, 'cat-lists', uid)
 
@@ -31,7 +34,7 @@ export const fireGetUserListById = async (uid: any) => {
     return null
   }
 }
-export const fireAddUserList = async (uid:any, availableList: object[], calledList: object[]) => {
+export const fireAddUserList = async (uid: any, availableList: object[], calledList: object[]) => {
   try {
     // Set the document ID to be the same as the uid
     const docRef = doc(db, 'cat-lists', uid)

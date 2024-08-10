@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 import { useRosterLists } from '@/stores/useRosterLists'
+import { fireSignOut } from '@/firebase/fireAuth'
 
 export const useUser = defineStore('user', () => {
   const user = ref<any | null>(null)
@@ -9,7 +10,8 @@ export const useUser = defineStore('user', () => {
     user.value = newUser
   }
 
-  const clearUser = () => {
+  const clearUser = async () => {
+    await fireSignOut()
     user.value = null
   }
 
@@ -27,7 +29,7 @@ export const useUser = defineStore('user', () => {
 
   onMounted(async () => {
     const userLS = localStorage.getItem('USER_LS')
-    const paresedUser = userLS == null? null : JSON.parse(userLS)
+    const paresedUser = userLS == null ? null : JSON.parse(userLS)
     if (paresedUser) {
       user.value = paresedUser
     }

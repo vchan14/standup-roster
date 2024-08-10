@@ -11,7 +11,7 @@ const initialAvailableList: CatObject[] = [
 
 const initialCalledList: CatObject[] = [
   { name: 'Lisa', id: 5 },
-  { name: 'Sok', id: 6 },
+  { name: 'Sok', id: 6 }
 ]
 
 const AVAILABLE_LIST_LS = 'AVAILABLE_LIST_LS'
@@ -53,7 +53,7 @@ export const useRosterLists = defineStore('rosterLists', () => {
     return availableList.value[randomIndex]
   }
 
-  const setLists = async (uid:(null | number)) => {
+  const setLists = async (uid: null | number) => {
     // use local storage if not log in
     if (uid) {
       console.warn('setLists', uid)
