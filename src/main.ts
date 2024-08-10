@@ -8,7 +8,9 @@ import {useUser} from "@/stores/useUser";
 import {fireAuth} from "@/firebase/fireAuth";
 
 const app = createApp(App)
+
 app.use(createPinia())
+
 app.mount('#app')
 
 

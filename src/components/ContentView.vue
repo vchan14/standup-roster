@@ -1,23 +1,20 @@
 <template>
   <div class="flex flex-row gap w-full h-full justify-between">
     <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-lg px-4 py-2">
-      <p class="font-bold text-4xl text-center my-3">🧍‍♂️🧍‍♀️🧍</p>
+      <p class="font-bold text-4xl text-center my-3">Kitty Queue</p>
       <draggable
-        class="flex flex-col gap-y-2 h-full"
-        v-model="poolListStore.availableList"
-        group="people"
-        itemKey="name"
+          class="flex flex-col gap-y-2 h-full"
+          v-model="poolListStore.availableList"
+          group="people"
+          itemKey="name"
       >
         <template #item="{ element }">
           <div
-            class="list-group-item"
-            :id="element.id"
-            :class="{
-              'called-effect': calledCatId === element.id,
-              'dragged-effect': draggedCardId === element.id
-            }"
-            @dragstart="handleDragStart"
-            @dragend="handleDragEnd"
+              class="list-group-item"
+              :id="element.id"
+              :class="{ 'called-effect': calledCatId === element.id, 'dragged-effect': draggedCardId === element.id }"
+              @dragstart="handleDragStart"
+              @dragend="handleDragEnd"
           >
             <CardBasic :name="element.name" />
           </div>
@@ -26,33 +23,35 @@
     </div>
 
     <div
-      class="h-[95%] flex justify-center items-center px-2 flex-col relative"
-      @dragover.prevent="handleDragOver"
-      @dragleave="handleDragLeave"
-      @drop="handleDrop"
+        class="h-[95%] flex justify-center items-center px-2 flex-col relative"
+        @dragover.prevent="handleDragOver"
+        @dragleave="handleDragLeave"
+        @drop="handleDrop"
     >
-      <div :class="{ 'hover-effect': isHovering }" class="absolute bottom-0">
+      <div
+          :class="{ 'hover-effect': isHovering }"
+          class="absolute bottom-0"
+      >
         <Trash2 :size="49" />
       </div>
-      <ButtonBasic @click="getNextCat">Next</ButtonBasic>
+      <ButtonBasic @click="getNextCat">Next Cat</ButtonBasic>
     </div>
 
     <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-lg px-4 py-2">
-      <p class="font-bold text-4xl text-center my-3">🪑‍</p>
+      <p class="font-bold text-4xl text-center my-3">Kitty Lounge</p>
       <draggable
-        class="flex flex-col gap-y-2 h-full"
-        v-model="poolListStore.calledList"
-        group="people"
-        itemKey="name"
+          class="flex flex-col gap-y-2 h-full"
+          v-model="poolListStore.calledList"
+          group="people"
+          itemKey="name"
       >
         <template #item="{ element }">
           <div
-            class="list-group-item"
-            :class="{ 'dragged-effect': draggedCardId === element.id }"
-            :id="element.id"
-            @dragstart="handleDragStart"
-            @dragend="handleDragEnd"
-          >
+              class="list-group-item"
+              :class="{'dragged-effect': draggedCardId === element.id}"
+               :id="element.id"
+               @dragstart="handleDragStart"
+               @dragend="handleDragEnd">
             <CardBasic :name="element.name" />
           </div>
         </template>
@@ -103,7 +102,7 @@ const getNextCat = () => {
   if (!nextCat) {
     toast({
       description: `No more cats in the Queue`,
-      variant: 'destructive'
+      variant: 'destructive',
     })
     return
   }
@@ -126,6 +125,6 @@ const getNextCat = () => {
 }
 
 .dragged-effect {
-  background-color: #e1ddd4;
+  background-color: #E1DDD4;
 }
 </style>
