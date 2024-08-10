@@ -5,13 +5,14 @@ import { useUser } from '@/stores/useUser'
 import { fireAddUserList, fireGetUserListById } from '@/firebase/fireFirestore.js'
 
 const initialAvailableList: CatObject[] = [
-  { name: 'Alice', id: 1 },
-  { name: 'Bob', id: 2 }
+  { name: 'Lionel Messi', id: 1 },
+  { name: 'Joe Cole', id: 2 }
 ]
 
 const initialCalledList: CatObject[] = [
-  { name: 'Lisa', id: 5 },
-  { name: 'Sok', id: 6 },
+  { name: 'Whiskers', id: 5 },
+  { name: 'Luna', id: 6 },
+  { name: 'Simba', id: 7 }
 ]
 
 const AVAILABLE_LIST_LS = 'AVAILABLE_LIST_LS'

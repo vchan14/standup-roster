@@ -72,7 +72,7 @@ const userStore = useUser();
       <Input
         class="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
         type="text"
-        placeholder="👩‍💻 or 👨‍💻"
+        placeholder="New cat"
         @keyup.enter="addNewCat"
       />
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row gap w-full h-full justify-between">
     <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-lg px-4 py-2">
-      <p class="font-bold text-4xl text-center my-3">🧍‍♂️🧍‍♀️🧍</p>
+      <p class="font-bold text-4xl text-center my-3">Kitty Queue</p>
       <draggable
         class="flex flex-col gap-y-2 h-full"
         v-model="poolListStore.availableList"
@@ -34,11 +34,11 @@
       <div :class="{ 'hover-effect': isHovering }" class="absolute bottom-0">
         <Trash2 :size="49" />
       </div>
-      <ButtonBasic @click="getNextCat">Next</ButtonBasic>
+      <ButtonBasic @click="getNextCat">Next Cat</ButtonBasic>
     </div>
 
     <div class="w-[48%] h-[95%] flex flex-col rounded-md shadow-lg px-4 py-2">
-      <p class="font-bold text-4xl text-center my-3">🪑‍</p>
+      <p class="font-bold text-4xl text-center my-3">Kitty Lounge</p>
       <draggable
         class="flex flex-col gap-y-2 h-full"
         v-model="poolListStore.calledList"
