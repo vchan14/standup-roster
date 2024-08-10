@@ -55,8 +55,12 @@ const userStore = useUser()
       Sign In
     </ButtonBasic>
     <div class="flex flex-row gap-x-4 items-center" v-else>
-      <span>{{ userStore.user?.displayName }}</span>
-      <ButtonBasic @click="userStore.clearUser()" variant="outline"> Sign Out </ButtonBasic>
+      <span>{{userStore.user?.displayName}}</span>
+      <ButtonBasic
+          @click="userStore.clearUser()" variant="outline" >
+        Sign Out
+      </ButtonBasic>
+
     </div>
   </div>
   <div class="app">
