@@ -12,7 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { AvatarFallback } from 'radix-vue'
+import { ref } from 'vue'
+import { AvatarFallback, AvatarImage } from 'radix-vue'
 import Avatar from '@/components/ui/avatar/Avatar.vue'
 
 // define props of name, image, isEditing
