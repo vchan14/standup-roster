@@ -7,6 +7,9 @@ import { useRosterLists } from '@/stores/useRosterLists'
 import { RotateCw } from 'lucide-vue-next'
 import ButtonBasic from '@/components/ui/button/ButtonBasic.vue'
 import { PawPrint } from 'lucide-vue-next'
+import { signInWithGoogle } from '@/firebase/fireAuth'
+import { useUser } from '@/stores/useUser'
+import AlertDialogBasic from '@/stories/alertDialog/AlertDialogBasic.vue'
 
 const { toast } = useToast()
 
@@ -17,6 +20,7 @@ const addNewCat = (e: Event) => {
   if (!name) {
     return
   }
+  // @ts-ignore
   e.target.value = ''
   console.log('adding new cat')
   const id = new Date().getTime()
@@ -36,14 +40,24 @@ const resetLists = () => {
     description: `Lists have been reset`
   })
 }
+
+const userStore = useUser()
 </script>
 
 <template>
   <Toaster />
-  <div class="top absolute">
-    <ButtonBasic @click="resetLists" variant="outline" size="icon">
+  <div class="top absolute flex justify-between w-full px-2">
+    <AlertDialogBasic :on-action="resetLists">
       <RotateCw :size="24" />
+    </AlertDialogBasic>
+
+    <ButtonBasic v-if="userStore.user === null" @click="signInWithGoogle" variant="outline">
+      Sign In
     </ButtonBasic>
+    <div class="flex flex-row gap-x-4 items-center" v-else>
+      <span>{{ userStore.user?.displayName }}</span>
+      <ButtonBasic @click="userStore.clearUser()" variant="outline"> Sign Out </ButtonBasic>
+    </div>
   </div>
   <div class="app">
     <div class="flex flex-col gap-y-4">
@@ -52,7 +66,7 @@ const resetLists = () => {
       <Input
         class="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
         type="text"
-        placeholder="New cat"
+        placeholder="👩‍💻 or 👨‍💻"
         @keyup.enter="addNewCat"
       />
     </div>
