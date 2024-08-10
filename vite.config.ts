@@ -22,6 +22,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  optimizeDeps: {
+    include: ['firebase/auth', 'firebase/app', "firebase/firestore"]
+  },
   build: {
     target: "esnext",
     rollupOptions: {
